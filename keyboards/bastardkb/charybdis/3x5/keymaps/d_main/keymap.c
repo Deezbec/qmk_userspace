@@ -174,7 +174,7 @@ void matrix_scan_user(void) {
 #endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 //*/
 
-/*
+///*
 void keyboard_post_init_user(void) {
     bkpd_set_auto_precision_on_mouse_layer_enabled(true);
     bkpd_set_auto_mouse_layer_enabled(true);
