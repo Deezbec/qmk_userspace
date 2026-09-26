@@ -45,10 +45,10 @@ enum charybdis_keymap_layers {
                       KC_NO, KC_TRNS, KC_NO, KC_LSFT, KC_CAPS
 
 #define LAYOUT_DOWN_EXTRA                                                                    \
-       KC_INS,   KC_NO,    KC_NO,   KC_NO,   KC_NO,    KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PAST, \
-       KC_TRNS,  KC_PGDN,  KC_PGUP, KC_SPC,   DF(1),    KC_PMNS, KC_P4, KC_P5, KC_P6, KC_PPLS, \
+       KC_INS,   KC_NO,    KC_NO,   KC_NO,   KC_SPC,    KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PAST, \
+       KC_TRNS,  KC_PGDN,  KC_PGUP, KC_MUTE,   DF(1),    KC_PMNS, KC_P4, KC_P5, KC_P6, KC_PPLS, \
        KC_SLEP,  KC_HOME,  KC_END,  KC_VOLD, KC_VOLU,  KC_P0, KC_P1, KC_P2, KC_P3, KC_PDOT,     \
-                      MS_BTN3, MS_BTN1, MS_BTN2, KC_NUM, KC_RALT
+                      KC_MPRV, KC_MNXT, KC_MPLY, KC_NUM, KC_RALT
 
 #define LAYOUT_MOD_                                                                                      \
        KC_F1,     KC_F2,    KC_F3,   KC_F4,   KC_F5,  KC_F6,   KC_F7,      KC_F8,    KC_F9,    KC_F10,    \
@@ -87,14 +87,14 @@ enum combos {
 
 const uint16_t PROGMEM combo_6[]  = {KC_2, KC_4, COMBO_END};
 const uint16_t PROGMEM combo_7[]  = {KC_3, KC_4, COMBO_END};
-const uint16_t PROGMEM combo_8[]  = {KC_3, KC_5, COMBO_END};
+const uint16_t PROGMEM combo_8[]  = {KC_2, KC_3, COMBO_END};
 const uint16_t PROGMEM combo_9[]  = {KC_2, KC_3, KC_4, COMBO_END};
-const uint16_t PROGMEM combo_0[]  = {KC_2, KC_3, KC_5, COMBO_END};
+const uint16_t PROGMEM combo_0[]  = {KC_1, KC_4, COMBO_END};
 const uint16_t PROGMEM combo_f6[] = {KC_F2, KC_F4, COMBO_END};
 const uint16_t PROGMEM combo_f7[] = {KC_F3, KC_F4, COMBO_END};
-const uint16_t PROGMEM combo_f8[] = {KC_F3, KC_F5, COMBO_END};
+const uint16_t PROGMEM combo_f8[] = {KC_F2, KC_F3, COMBO_END};
 const uint16_t PROGMEM combo_f9[] = {KC_F2, KC_F3, KC_F4, COMBO_END};
-const uint16_t PROGMEM combo_f10[] = {KC_F2, KC_F3, KC_F5, COMBO_END};
+const uint16_t PROGMEM combo_f10[] = {KC_F1, KC_F4, COMBO_END};
 const uint16_t PROGMEM combo_to_mod_extra[] = {KC_LSFT, KC_SPC, COMBO_END};
 
 combo_t key_combos[] = {
@@ -149,7 +149,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 #endif
 //*/
-/*
+///* AUTO MOUSE LAYER MY BY QMK
 #ifdef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 static uint16_t auto_pointer_layer_timer = 0;
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
@@ -171,17 +171,14 @@ void matrix_scan_user(void) {
         layer_off(LAYER_POINTER);
     }
 }
-#endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
-//*/
+#endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE //*/
 
-///*
+/* AUTO MOUSE LAYER MY BY BASTARDKB - does not work
 void keyboard_post_init_user(void) {
-    bkpd_set_auto_precision_on_mouse_layer_enabled(true);
+    //bkpd_set_auto_precision_on_mouse_layer_enabled(true);
     bkpd_set_auto_mouse_layer_enabled(true);
 }
 */
-
-
 
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0, 4}, {1, 4}, {2, 4}, {3, 4}, {4, 4}},
