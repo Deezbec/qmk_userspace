@@ -136,10 +136,13 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 }
 
 // Automatically enable sniping-mode on the pointer layer.
+
+/*
 #ifdef CHARYBDIS_AUTO_SNIPING_ON_LAYER
 #undef AUTO_MOUSE_DEFAULT_LAYER
 #endif
 #define CHARYBDIS_AUTO_SNIPING_ON_LAYER LAYER_MOD
+*/
 
 /*
 #ifdef CHARYBDIS_AUTO_SNIPING_ON_LAYER
