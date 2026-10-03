@@ -46,8 +46,8 @@
 
 #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE
 
-#define LEADER_PER_KEY_TIMING
-#define LEADER_TIMEOUT 250
+//#define LEADER_PER_KEY_TIMING
+//#define LEADER_TIMEOUT 250
 
 /* Charybdis-specific features. */
 
