@@ -153,11 +153,11 @@ enum {
     MEDIA,
 };
 
-td_state_t cur_dance(tap_dance_state_t *state);
+td_state_t d_cur_dance(tap_dance_state_t *state);
 void media_finished(tap_dance_state_t *state, void *user_data);
 void media_reset(tap_dance_state_t *state, void *user_data);
 
-td_state_t cur_dance(tap_dance_state_t *state) {
+td_state_t d_cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
         else return TD_SINGLE_HOLD;
@@ -173,7 +173,7 @@ static td_tap_t media_tap_state = {
 };
 
 void media_finished(tap_dance_state_t *state, void *user_data) {
-    media_tap_state.state = cur_dance(state);
+    media_tap_state.state = d_cur_dance(state);
     switch (media_tap_state.state) {
         case TD_SINGLE_TAP:
             tap_code16(KC_MNXT); // Next
