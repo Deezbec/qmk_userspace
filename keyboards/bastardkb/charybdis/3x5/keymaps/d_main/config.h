@@ -41,13 +41,20 @@
 #endif
 #define RGBLIGHT_LED_COUNT 36
 
+
+//tap dance
+#define TAPPING_TERM 200
+
+//combo
 #define COMBO_SHOULD_TRIGGER
 #define COMBO_TERM 70
 
+//unicode
 #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE
 
-//#define LEADER_PER_KEY_TIMING
-//#define LEADER_TIMEOUT 250
+//leader key
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 250
 
 /* Charybdis-specific features. */
 

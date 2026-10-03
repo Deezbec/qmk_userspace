@@ -60,7 +60,7 @@ enum charybdis_keymap_layers {
        KC_INS,   KC_NO,    KC_NO,   KC_NO,   KC_SPC,    KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PAST, \
        KC_TRNS,  KC_PGDN,  KC_PGUP, KC_NO,   DF(1),    KC_PMNS, KC_P4, KC_P5, KC_P6, KC_PPLS, \
        KC_SLEP,  KC_HOME,  KC_END,  KC_VOLD, KC_VOLU,  KC_P0, KC_P1, KC_P2, KC_P3, KC_PDOT,     \
-                      KC_MPRV, KC_MNXT, KC_MPLY, KC_NUM, KC_RALT
+                      KC_NO, TD(MEDIA_DANCE), KC_NO, KC_NUM, KC_RALT
 
 #define LAYOUT_POINTER                                                                            \
        KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
@@ -70,6 +70,7 @@ enum charybdis_keymap_layers {
 
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
+//-------------------------------------------------COMBO STUFF-------------------------------------------------
 enum combos {
     DOWN_COMBO_6,    
     DOWN_COMBO_7,     
@@ -107,7 +108,7 @@ combo_t key_combos[] = {
     [MOD_COMBO_F8]  = COMBO(combo_f8, KC_F8),
     [MOD_COMBO_F9]  = COMBO(combo_f9, KC_F9),
     [MOD_COMBO_F10] = COMBO(combo_f10, KC_F10),
-    [QUICK_TO_MOD_EXTRA] = COMBO(combo_to_mod_extra, MO(6)),
+    [QUICK_TO_MOD_EXTRA] = COMBO(combo_to_mod_extra, MO(4)),
 };
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
@@ -117,14 +118,14 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         case DOWN_COMBO_8:
         case DOWN_COMBO_9:
         case DOWN_COMBO_0:
-            return layer_state_is(3);
+            return layer_state_is(5);
             
         case MOD_COMBO_F6:
         case MOD_COMBO_F7:
         case MOD_COMBO_F8:
         case MOD_COMBO_F9:
         case MOD_COMBO_F10:
-            return layer_state_is(5);
+            return layer_state_is(3);
 
         case QUICK_TO_MOD_EXTRA:
             return layer_state_is(0);
@@ -134,24 +135,69 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     }
 }
 
-// Automatically enable sniping-mode on the pointer layer.
+//-----------------------------------------------TAP DANCE STUFF-----------------------------------------------
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_TAP
+} td_state_t;
 
-/*
-#ifdef CHARYBDIS_AUTO_SNIPING_ON_LAYER
-#undef AUTO_MOUSE_DEFAULT_LAYER
-#endif
-#define CHARYBDIS_AUTO_SNIPING_ON_LAYER LAYER_MOD
-*/
+typedef struct {
+    bool is_press_action;
+    td_state_t state;
+} td_tap_t;
 
-/*
-#ifdef CHARYBDIS_AUTO_SNIPING_ON_LAYER
-layer_state_t layer_state_set_user(layer_state_t state) {
-    bkpd_set_pointer_sniping_enabled(layer_state_cmp(state, CHARYBDIS_AUTO_SNIPING_ON_LAYER));
-    return state;
+enum {
+    MEDIA,
+};
+
+td_state_t cur_dance(tap_dance_state_t *state);
+void media_finished(tap_dance_state_t *state, void *user_data);
+void media_reset(tap_dance_state_t *state, void *user_data);
+
+td_state_t cur_dance(tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
+        else return TD_SINGLE_HOLD;
+    } else if (state->count == 2) {
+        return TD_DOUBLE_TAP;
+    }
+    return TD_UNKNOWN;
 }
-#endif
-//*/
-///* AUTO MOUSE LAYER MY BY QMK
+
+static td_tap_t media_tap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+
+void media_finished(tap_dance_state_t *state, void *user_data) {
+    media_tap_state.state = cur_dance(state);
+    switch (media_tap_state.state) {
+        case TD_SINGLE_TAP:
+            tap_code16(KC_MNXT); // Next
+            break;
+        case TD_SINGLE_HOLD:
+            tap_code16(KC_MPRV); // Previous
+            break;
+        case TD_DOUBLE_TAP:
+            tap_code16(KC_MPLY); // Play/Pause
+            break;
+        default:
+            break;
+    }
+}
+
+void media_reset(tap_dance_state_t *state, void *user_data) {
+    media_tap_state.state = TD_NONE;
+}
+
+tap_dance_action_t tap_dance_actions[] = {
+    [MEDIA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, media_finished, media_reset)
+};
+//-----------------------------------------------TRACKBALL STUFF-----------------------------------------------
+// AUTO MOUSE LAYER MY BY QMK
 #ifdef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 static uint16_t auto_pointer_layer_timer = 0;
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
@@ -182,6 +228,7 @@ void keyboard_post_init_user(void) {
 }
 */
 
+//----------------------------------------------SWAP HANDS MOTION----------------------------------------------
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0, 4}, {1, 4}, {2, 4}, {3, 4}, {4, 4}},
     {{0, 5}, {1, 5}, {2, 5}, {3, 5}, {4, 5}},
@@ -193,7 +240,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0, 2}, {1, 2}, {2, 2}, {3, 2}, {4, 2}},
     {{0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}},
 };
-
+//----------------------------------------------FINAL CONSTRUCTION----------------------------------------------
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] = LAYOUT_wrapper(LAYOUT_LAYER_BASE),
   [LAYER_GAME] = LAYOUT_wrapper(LAYOUT_GAME),
