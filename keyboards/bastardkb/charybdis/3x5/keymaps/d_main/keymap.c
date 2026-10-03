@@ -27,7 +27,7 @@ enum charybdis_keymap_layers {
 #define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 #define LAYOUT_GAME                                                                                      \
-       KC_M,       KC_Q,    KC_W,    KC_E,    KC_R,    KC_NO,   KC_NO,      KC_UP,       KC_NO,    KC_NO, \
+       MO(3),       KC_Q,    KC_W,    KC_E,    KC_R,    KC_NO,   KC_NO,      KC_UP,       KC_NO,    KC_NO, \
        KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_NO,   KC_LEFT,    KC_DOWN,     KC_RGHT,  KC_NO,  \
        MO(3),      KC_Z,    KC_X,    KC_C,    KC_V,    KC_NO,   MS_BTN1,    MS_BTN3,     MS_BTN2, DRGSCRL,  \
                       KC_NO, MO(2), KC_SPC, DF(0), MO(2)
@@ -57,10 +57,10 @@ enum charybdis_keymap_layers {
                       KC_NO, KC_TRNS, KC_NO, KC_LSFT, KC_SPC
 
 #define LAYOUT_DOWN_EXTRA                                                                    \
-       KC_INS,   KC_NO,    KC_NO,   KC_NO,   KC_SPC,    KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PAST, \
+       KC_INS,   KC_NO,    KC_NO,   KC_NO,   KC_NO,    KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PAST, \
        KC_TRNS,  KC_PGDN,  KC_PGUP, KC_NO,   DF(1),    KC_PMNS, KC_P4, KC_P5, KC_P6, KC_PPLS, \
        KC_SLEP,  KC_HOME,  KC_END,  KC_VOLD, KC_VOLU,  KC_P0, KC_P1, KC_P2, KC_P3, KC_PDOT,     \
-                      KC_NO, TD(MEDIA), KC_NO, KC_NUM, KC_RALT
+                      KC_NO, TD(MEDIA), KC_SPC, KC_NUM, KC_RALT
 
 #define LAYOUT_POINTER                                                                            \
        KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
@@ -149,9 +149,7 @@ typedef struct {
     td_state_t state;
 } td_tap_t;
 
-enum {
-    MEDIA,
-};
+#define MEDIA 0
 
 td_state_t d_cur_dance(tap_dance_state_t *state);
 void media_finished(tap_dance_state_t *state, void *user_data);
