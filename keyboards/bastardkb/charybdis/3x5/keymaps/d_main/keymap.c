@@ -60,7 +60,7 @@ enum charybdis_keymap_layers {
        KC_INS,   KC_NO,    KC_NO,   KC_NO,   KC_SPC,    KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PAST, \
        KC_TRNS,  KC_PGDN,  KC_PGUP, KC_NO,   DF(1),    KC_PMNS, KC_P4, KC_P5, KC_P6, KC_PPLS, \
        KC_SLEP,  KC_HOME,  KC_END,  KC_VOLD, KC_VOLU,  KC_P0, KC_P1, KC_P2, KC_P3, KC_PDOT,     \
-                      KC_NO, TD(MEDIA_DANCE), KC_NO, KC_NUM, KC_RALT
+                      KC_NO, TD(MEDIA), KC_NO, KC_NUM, KC_RALT
 
 #define LAYOUT_POINTER                                                                            \
        KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
