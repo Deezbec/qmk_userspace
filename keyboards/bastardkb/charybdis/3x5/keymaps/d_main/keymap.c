@@ -8,10 +8,10 @@ enum charybdis_keymap_layers {
     LAYER_BASE = 0,
     LAYER_GAME,
     LAYER_GAME_EXTRA,
-    LAYER_DOWN,
-    LAYER_DOWN_EXTRA,
     LAYER_MOD,
     LAYER_MOD_EXTRA,
+    LAYER_DOWN,
+    LAYER_DOWN_EXTRA,
     LAYER_POINTER,
 };
 
@@ -21,7 +21,7 @@ enum charybdis_keymap_layers {
        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  \
        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,   \
        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,    \
-                      KC_NO, MO(3), MO(5), KC_LSFT, KC_SPC
+                      KC_NO, MO(5), MO(3), KC_LSFT, KC_SPC
 
 /** Convenience row shorthands. */
 #define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -29,8 +29,8 @@ enum charybdis_keymap_layers {
 #define LAYOUT_GAME                                                                                      \
        KC_M,       KC_Q,    KC_W,    KC_E,    KC_R,    KC_NO,   KC_NO,      KC_UP,       KC_NO,    KC_NO, \
        KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_NO,   KC_LEFT,    KC_DOWN,     KC_RGHT,  KC_NO,  \
-       MO(5),      KC_Z,    KC_X,    KC_C,    KC_V,    KC_NO,   MS_BTN1,    MS_BTN3,     MS_BTN2, DRGSCRL,  \
-                      MO(3), MO(2), KC_SPC, DF(0), MO(2)
+       MO(3),      KC_Z,    KC_X,    KC_C,    KC_V,    KC_NO,   MS_BTN1,    MS_BTN3,     MS_BTN2, DRGSCRL,  \
+                      KC_NO, MO(2), KC_SPC, DF(0), MO(2)
 
 #define LAYOUT_GAME_EXTRA                                                                           \
        KC_P,      KC_O,    KC_U,    KC_Y,    KC_T,    KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,  \
@@ -38,36 +38,35 @@ enum charybdis_keymap_layers {
        KC_I,      KC_K,    KC_M,    KC_N,    KC_B,    KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    \
                       KC_NO, KC_TRNS, DF(0), KC_NO, KC_NO
 
+#define LAYOUT_MOD_                                                                                      \
+       KC_F1,     KC_F2,    KC_F3,   KC_F4,   KC_F5,  KC_F6,   KC_F7,      KC_F8,    KC_F9,    KC_F10,    \
+       MO(4),     KC_LALT,  KC_LCTL, KC_LSFT, KC_TAB, KC_F11,  KC_RSFT,    KC_RCTL,  KC_RALT,  KC_RGUI,    \
+       KC_LSFT,   KC_LCTL,  KC_ESC,   KC_APP,   KC_LGUI, KC_F12,  MS_BTN1,    MS_BTN3,  MS_BTN2,  DRGSCRL, \
+                      KC_NO, MO(5), DF(0), KC_LSFT, KC_SPC
+
+#define LAYOUT_MOD_EXTRA                                                                  \
+       KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_CLEAR_EEPROM, QK_BOOT, \
+       KC_NO,  KC_NO,  KC_NO, QK_LEAD, KC_NO, KC_NO, KC_NO, KC_NO, S_D_MOD, DPI_MOD,              \
+       SH_TT,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, S_D_RMOD, DPI_RMOD,               \
+                      KC_NO, KC_NO, QK_LEAD, KC_NO, KC_NO
+
 #define LAYOUT_DOWN                                                                                       \
        KC_1,      KC_2,     KC_3,    KC_4,      KC_5,    KC_6,   KC_7,      KC_8,    KC_9,     KC_0,       \
-       MO(4),     KC_DOWN,  KC_UP,   KC_BSPC,   KC_DEL,  KC_GRV, KC_MINS,   KC_EQL,  KC_BSLS,  KC_QUOT,     \
+       MO(6),     KC_DOWN,  KC_UP,   KC_BSPC,   KC_DEL,  KC_GRV, KC_MINS,   KC_EQL,  KC_BSLS,  KC_QUOT,     \
        KC_LCTL,   KC_LEFT,  KC_RGHT, SC_SENT, KC_CAPS,    KC_NO,  KC_LBRC,   KC_NO,   KC_NO,    KC_RBRC,      \
                       KC_NO, KC_TRNS, KC_NO, KC_LSFT, KC_SPC
 
 #define LAYOUT_DOWN_EXTRA                                                                    \
        KC_INS,   KC_NO,    KC_NO,   KC_NO,   KC_SPC,    KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PAST, \
-       KC_TRNS,  KC_PGDN,  KC_PGUP, KC_MUTE,   DF(1),    KC_PMNS, KC_P4, KC_P5, KC_P6, KC_PPLS, \
+       KC_TRNS,  KC_PGDN,  KC_PGUP, KC_NO,   DF(1),    KC_PMNS, KC_P4, KC_P5, KC_P6, KC_PPLS, \
        KC_SLEP,  KC_HOME,  KC_END,  KC_VOLD, KC_VOLU,  KC_P0, KC_P1, KC_P2, KC_P3, KC_PDOT,     \
                       KC_MPRV, KC_MNXT, KC_MPLY, KC_NUM, KC_RALT
-
-#define LAYOUT_MOD_                                                                                      \
-       KC_F1,     KC_F2,    KC_F3,   KC_F4,   KC_F5,  KC_F6,   KC_F7,      KC_F8,    KC_F9,    KC_F10,    \
-       MO(6),     KC_LALT,  KC_LCTL, KC_LSFT, KC_TAB, KC_F11,  KC_RSFT,    KC_RCTL,  KC_RALT,  KC_RGUI,    \
-       KC_LSFT,   KC_LCTL,  KC_ESC,   KC_APP,   KC_LGUI, KC_F12,  MS_BTN1,    MS_BTN3,  MS_BTN2,  DRGSCRL, \
-                      KC_NO, DF(0), KC_TRNS, KC_LSFT, KC_NO
-
-
-#define LAYOUT_MOD_EXTRA                                                                  \
-       KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_CLEAR_EEPROM, QK_BOOT, \
-       KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, S_D_MOD, DPI_MOD,              \
-       SH_TT,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, S_D_RMOD, DPI_RMOD,               \
-                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 
 #define LAYOUT_POINTER                                                                            \
        KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
        KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  \
        KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MS_BTN1, MS_BTN3, MS_BTN2, DRGSCRL,   \
-                      SNIPING, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+                      KC_NO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
@@ -199,9 +198,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] = LAYOUT_wrapper(LAYOUT_LAYER_BASE),
   [LAYER_GAME] = LAYOUT_wrapper(LAYOUT_GAME),
   [LAYER_GAME_EXTRA] = LAYOUT_wrapper(LAYOUT_GAME_EXTRA),
-  [LAYER_DOWN] = LAYOUT_wrapper(LAYOUT_DOWN),
-  [LAYER_DOWN_EXTRA] = LAYOUT_wrapper(LAYOUT_DOWN_EXTRA),
   [LAYER_MOD] = LAYOUT_wrapper(LAYOUT_MOD_),
   [LAYER_MOD_EXTRA] = LAYOUT_wrapper(LAYOUT_MOD_EXTRA),
+  [LAYER_DOWN] = LAYOUT_wrapper(LAYOUT_DOWN),
+  [LAYER_DOWN_EXTRA] = LAYOUT_wrapper(LAYOUT_DOWN_EXTRA),
   [LAYER_POINTER] = LAYOUT_wrapper(LAYOUT_POINTER),
 };
