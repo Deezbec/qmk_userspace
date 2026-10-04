@@ -37,15 +37,15 @@ enum charybdis_keymap_layers {
 
 #define LAYOUT_MOD_                                                                                      \
        KC_F1,     KC_F2,    KC_F3,   KC_F4,   KC_F5,  KC_F6,   KC_F7,      KC_F8,    KC_F9,    KC_F10,    \
-       MO(4),     KC_LALT,  KC_LCTL, KC_LSFT, KC_TAB, KC_F11,  KC_RSFT,    KC_RCTL,  KC_RALT,  KC_RGUI,    \
+       MO(4),     KC_LALT,  KC_LCTL, QK_LEAD, KC_TAB, KC_F11,  KC_RSFT,    KC_RCTL,  KC_RALT,  KC_RGUI,    \
        KC_LSFT,   KC_LCTL,  KC_ESC,   KC_APP,   KC_LGUI, KC_F12,  MS_BTN1,    MS_BTN3,  MS_BTN2,  DRGSCRL, \
                       KC_NO, MO(5), DF(0), KC_LSFT, KC_SPC
 
 #define LAYOUT_MOD_EXTRA                                                                  \
        KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_CLEAR_EEPROM, QK_BOOT, \
-       KC_NO,  KC_NO,  KC_NO, QK_LEAD, KC_NO, KC_NO, KC_NO, KC_NO, S_D_MOD, DPI_MOD,              \
+       KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, S_D_MOD, DPI_MOD,              \
        SH_TT,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, S_D_RMOD, DPI_RMOD,               \
-                      KC_NO, KC_NO, QK_LEAD, KC_NO, KC_NO
+                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 
 #define LAYOUT_DOWN                                                                                       \
        KC_1,      KC_2,     KC_3,    KC_4,      KC_5,    KC_6,   KC_7,      KC_8,    KC_9,     KC_0,       \
@@ -225,20 +225,24 @@ void keyboard_post_init_user(void) {
 //-----------------------------------------------LEADER KEY STUFF-----------------------------------------------
 void leader_end_user(void) {
     if (leader_sequence_one_key(KC_V)) {
-        // Leader, v => Ctrl+C, Alt+Tab, Enter, пауза, Ctrl+V, Alt+Tab
+        // Leader, v => Ctrl+C, Alt+Tab, Enter, wait, Ctrl+V, Alt+Tab
         SEND_STRING(SS_LCTL("c"));
         SEND_STRING(SS_LALT(SS_TAP(X_TAB)));
         SEND_STRING(SS_TAP(X_ENTER));
         SEND_STRING(SS_DELAY(100));
         SEND_STRING(SS_LCTL("v"));
         SEND_STRING(SS_LALT(SS_TAP(X_TAB)));
-    } else if (leader_sequence_one_key(KC_S)) {
-        // Leader, s => Ctrl+S, пауза 300, Enter, пауза 200, Ctrl+W
+    } else if (leader_sequence_one_key(KC_D)) {
+        // Leader, d => Ctrl+S, wait 300, Enter, wait 200, Ctrl+W
         SEND_STRING(SS_LCTL("s"));
         SEND_STRING(SS_DELAY(300));
         SEND_STRING(SS_TAP(X_ENTER));
         SEND_STRING(SS_DELAY(200));
         SEND_STRING(SS_LCTL("w"));
+    }
+    else if (leader_sequence_one_key(KC_S)) {
+        // Leader, s => Language swap (Win + Space)
+        SEND_STRING(SS_LGUI(X_SPACE));
     }
 }
 //----------------------------------------------SWAP HANDS MOTION----------------------------------------------
