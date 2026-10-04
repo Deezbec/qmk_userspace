@@ -21,7 +21,7 @@ enum charybdis_keymap_layers {
        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  \
        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,   \
        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,    \
-                      QK_LEAD, MO(5), MO(3), KC_LSFT, KC_SPC
+                      KC_NO, MO(5), MO(3), KC_LSFT, KC_SPC
 
 #define LAYOUT_GAME                                                                                      \
        MO(3),       KC_Q,    KC_W,    KC_E,    KC_R,    KC_NO,   KC_NO,      KC_UP,       KC_NO,    KC_NO, \
@@ -235,7 +235,7 @@ void leader_end_user(void) {
     } else if (leader_sequence_one_key(KC_D)) {
         // Leader, d => Ctrl+S, wait 300, Enter, wait 200, Ctrl+W
         SEND_STRING(SS_LCTL("s"));
-        SEND_STRING(SS_DELAY(300));
+        SEND_STRING(SS_DELAY(700));
         SEND_STRING(SS_TAP(X_ENTER));
         SEND_STRING(SS_DELAY(200));
         SEND_STRING(SS_LCTL("w"));
