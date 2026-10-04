@@ -50,14 +50,14 @@ enum charybdis_keymap_layers {
 #define LAYOUT_DOWN                                                                                       \
        KC_1,      KC_2,     KC_3,    KC_4,      KC_5,    KC_6,   KC_7,      KC_8,    KC_9,     KC_0,       \
        MO(6),     KC_DOWN,  KC_UP,   KC_BSPC,   KC_DEL,  KC_GRV, KC_MINS,   KC_EQL,  KC_BSLS,  KC_QUOT,     \
-       KC_LCTL,   KC_LEFT,  KC_RGHT, SC_SENT, KC_CAPS,    KC_NO,  KC_LBRC,   KC_NO,   KC_NO,    KC_RBRC,      \
+       KC_LCTL,   KC_LEFT,  KC_RGHT, SC_SENT, KC_NO,    KC_NO,  KC_LBRC,   KC_NO,   KC_NO,    KC_RBRC,      \
                       KC_NO, KC_TRNS, KC_NO, KC_LSFT, KC_SPC
 
 #define LAYOUT_DOWN_EXTRA                                                                    \
-       KC_INS,   KC_NO,    KC_NO,   KC_NO,   KC_NO,    KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PAST, \
-       KC_TRNS,  KC_PGDN,  KC_PGUP, KC_NO,   DF(1),    KC_PMNS, KC_P4, KC_P5, KC_P6, KC_PPLS, \
+       KC_INS,   KC_NO,    KC_NO,   KC_MPLY,   KC_MPRV,    KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PAST, \
+       KC_TRNS,  KC_PGDN,  KC_PGUP, KC_CAPS,   DF(1),    KC_PMNS, KC_P4, KC_P5, KC_P6, KC_PPLS, \
        KC_SLEP,  KC_HOME,  KC_END,  KC_VOLD, KC_VOLU,  KC_P0, KC_P1, KC_P2, KC_P3, KC_PDOT,     \
-                      KC_NO, TD(MEDIA), KC_SPC, KC_NUM, KC_RALT
+                      KC_NO, KC_MNXT, KC_SPC, KC_NUM, KC_RALT
 
 #define LAYOUT_POINTER                                                                            \
        KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
@@ -132,65 +132,29 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     }
 }
 
-//-----------------------------------------------TAP DANCE STUFF-----------------------------------------------
-typedef enum {
-    TD_NONE,
-    TD_UNKNOWN,
-    TD_SINGLE_TAP,
-    TD_SINGLE_HOLD,
-    TD_DOUBLE_TAP
-} td_state_t;
-
-typedef struct {
-    bool is_press_action;
-    td_state_t state;
-} td_tap_t;
-
-#define MEDIA 0
-
-td_state_t d_cur_dance(tap_dance_state_t *state);
-void media_finished(tap_dance_state_t *state, void *user_data);
-void media_reset(tap_dance_state_t *state, void *user_data);
-
-td_state_t d_cur_dance(tap_dance_state_t *state) {
-    if (state->count == 1) {
-        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
-        else return TD_SINGLE_HOLD;
-    } else if (state->count == 2) {
-        return TD_DOUBLE_TAP;
+//-----------------------------------------------LEADER KEY STUFF-----------------------------------------------
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_V)) {
+        // Leader, v => Ctrl+C, Alt+Tab, Enter, wait, Ctrl+V, Alt+Tab
+        SEND_STRING(SS_LCTL("c"));
+        SEND_STRING(SS_LALT(SS_TAP(X_TAB)));
+        SEND_STRING(SS_TAP(X_ENTER));
+        SEND_STRING(SS_DELAY(100));
+        SEND_STRING(SS_LCTL("v"));
+        SEND_STRING(SS_LALT(SS_TAP(X_TAB)));
+    } else if (leader_sequence_one_key(KC_D)) {
+        // Leader, d => Ctrl+S, wait 300, Enter, wait 200, Ctrl+W
+        SEND_STRING(SS_LCTL("s"));
+        SEND_STRING(SS_DELAY(700));
+        SEND_STRING(SS_TAP(X_ENTER));
+        SEND_STRING(SS_DELAY(200));
+        SEND_STRING(SS_LCTL("w"));
     }
-    return TD_UNKNOWN;
-}
-
-static td_tap_t media_tap_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
-
-void media_finished(tap_dance_state_t *state, void *user_data) {
-    media_tap_state.state = d_cur_dance(state);
-    switch (media_tap_state.state) {
-        case TD_SINGLE_TAP:
-            tap_code16(KC_MNXT); // Next
-            break;
-        case TD_SINGLE_HOLD:
-            tap_code16(KC_MPRV); // Previous
-            break;
-        case TD_DOUBLE_TAP:
-            tap_code16(KC_MPLY); // Play/Pause
-            break;
-        default:
-            break;
+    else if (leader_sequence_one_key(KC_S)) {
+        // Leader, s => Language swap (Win + Space)
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI));
     }
 }
-
-void media_reset(tap_dance_state_t *state, void *user_data) {
-    media_tap_state.state = TD_NONE;
-}
-
-tap_dance_action_t tap_dance_actions[] = {
-    [MEDIA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, media_finished, media_reset)
-};
 //-----------------------------------------------TRACKBALL STUFF-----------------------------------------------
 // AUTO MOUSE LAYER MY BY QMK
 #ifdef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
@@ -222,29 +186,6 @@ void keyboard_post_init_user(void) {
     bkpd_set_auto_mouse_layer_enabled(true);
 }
 */
-//-----------------------------------------------LEADER KEY STUFF-----------------------------------------------
-void leader_end_user(void) {
-    if (leader_sequence_one_key(KC_V)) {
-        // Leader, v => Ctrl+C, Alt+Tab, Enter, wait, Ctrl+V, Alt+Tab
-        SEND_STRING(SS_LCTL("c"));
-        SEND_STRING(SS_LALT(SS_TAP(X_TAB)));
-        SEND_STRING(SS_TAP(X_ENTER));
-        SEND_STRING(SS_DELAY(100));
-        SEND_STRING(SS_LCTL("v"));
-        SEND_STRING(SS_LALT(SS_TAP(X_TAB)));
-    } else if (leader_sequence_one_key(KC_D)) {
-        // Leader, d => Ctrl+S, wait 300, Enter, wait 200, Ctrl+W
-        SEND_STRING(SS_LCTL("s"));
-        SEND_STRING(SS_DELAY(700));
-        SEND_STRING(SS_TAP(X_ENTER));
-        SEND_STRING(SS_DELAY(200));
-        SEND_STRING(SS_LCTL("w"));
-    }
-    else if (leader_sequence_one_key(KC_S)) {
-        // Leader, s => Language swap (Win + Space)
-        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI));
-    }
-}
 //----------------------------------------------SWAP HANDS MOTION----------------------------------------------
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0, 4}, {1, 4}, {2, 4}, {3, 4}, {4, 4}},
