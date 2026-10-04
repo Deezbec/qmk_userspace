@@ -21,10 +21,7 @@ enum charybdis_keymap_layers {
        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  \
        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,   \
        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,    \
-                      KC_NO, MO(5), MO(3), KC_LSFT, KC_SPC
-
-/** Convenience row shorthands. */
-#define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+                      QK_LEAD, MO(5), MO(3), KC_LSFT, KC_SPC
 
 #define LAYOUT_GAME                                                                                      \
        MO(3),       KC_Q,    KC_W,    KC_E,    KC_R,    KC_NO,   KC_NO,      KC_UP,       KC_NO,    KC_NO, \
@@ -36,7 +33,7 @@ enum charybdis_keymap_layers {
        KC_P,      KC_O,    KC_U,    KC_Y,    KC_T,    KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,  \
        KC_LCTL,   KC_L,    KC_J,    KC_H,    KC_G,    KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,   \
        KC_I,      KC_K,    KC_M,    KC_N,    KC_B,    KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    \
-                      KC_NO, KC_TRNS, DF(0), KC_NO, KC_NO
+                      KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO
 
 #define LAYOUT_MOD_                                                                                      \
        KC_F1,     KC_F2,    KC_F3,   KC_F4,   KC_F5,  KC_F6,   KC_F7,      KC_F8,    KC_F9,    KC_F10,    \
@@ -225,7 +222,31 @@ void keyboard_post_init_user(void) {
     bkpd_set_auto_mouse_layer_enabled(true);
 }
 */
+//-----------------------------------------------LEADER KEY STUFF-----------------------------------------------
+void leader_end_user(void) {
+    // Leader + V: переключение окна и вставка с задержкой
+    if (leader_sequence_one_key(KC_V)) {
+        SEND_STRING(
+            SS_DOWN(X_LCTRL) "c" SS_UP(X_LCTRL)          // Ctrl+C
+            SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT)  // Alt+Tab
+            SS_TAP(X_ENTER)                               // Enter
+            SS_DELAY(100)                                 // Пауза 100 мс
+            SS_DOWN(X_LCTRL) "v" SS_UP(X_LCTRL)          // Ctrl+V
+            SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT)  // Alt+Tab
+        );
+    }
 
+    // Leader + S: сохранение и закрытие вкладки
+    if (leader_sequence_one_key(KC_S)) {
+        SEND_STRING(
+            SS_DOWN(X_LCTRL) "s" SS_UP(X_LCTRL)          // Ctrl+S
+            SS_DELAY(300)                                 // Пауза 300 мс
+            SS_TAP(X_ENTER)                               // Enter
+            SS_DELAY(200)                                 // Пауза 200 мс
+            SS_DOWN(X_LCTRL) "w" SS_UP(X_LCTRL)          // Ctrl+W
+        );
+    }
+}
 //----------------------------------------------SWAP HANDS MOTION----------------------------------------------
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0, 4}, {1, 4}, {2, 4}, {3, 4}, {4, 4}},
