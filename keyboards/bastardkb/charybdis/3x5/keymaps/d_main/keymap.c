@@ -225,24 +225,20 @@ void keyboard_post_init_user(void) {
 //-----------------------------------------------LEADER KEY STUFF-----------------------------------------------
 void leader_end_user(void) {
     if (leader_sequence_one_key(KC_V)) {
-        SEND_STRING(
-            SS_DOWN(X_LCTRL) "c" SS_UP(X_LCTRL)
-            SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT)
-            SS_TAP(X_ENTER)
-            SS_DELAY(100)
-            SS_DOWN(X_LCTRL) "v" SS_UP(X_LCTRL)
-            SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT)
-        );
+        SEND_STRING(SS_DOWN(X_LCTRL) "c" SS_UP(X_LCTRL));
+        SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT));
+        SEND_STRING(SS_TAP(X_ENTER));
+        SEND_STRING(SS_DELAY(100));
+        SEND_STRING(SS_DOWN(X_LCTRL) "v" SS_UP(X_LCTRL));
+        SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT));
     }
 
     if (leader_sequence_one_key(KC_S)) {
-        SEND_STRING(
-            SS_DOWN(X_LCTRL) "s" SS_UP(X_LCTRL)
-            SS_DELAY(300)
-            SS_TAP(X_ENTER)
-            SS_DELAY(200)
-            SS_DOWN(X_LCTRL) "w" SS_UP(X_LCTRL)
-        );
+        SEND_STRING(SS_DOWN(X_LCTRL) "s" SS_UP(X_LCTRL));
+        SEND_STRING(SS_DELAY(300));
+        SEND_STRING(SS_TAP(X_ENTER));
+        SEND_STRING(SS_DELAY(200));
+        SEND_STRING(SS_DOWN(X_LCTRL) "w" SS_UP(X_LCTRL));
     }
 }
 //----------------------------------------------SWAP HANDS MOTION----------------------------------------------
