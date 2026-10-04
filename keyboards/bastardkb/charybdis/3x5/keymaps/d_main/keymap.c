@@ -223,7 +223,24 @@ void keyboard_post_init_user(void) {
 }
 */
 //-----------------------------------------------LEADER KEY STUFF-----------------------------------------------
-
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_V)) {
+        // Leader, v => Ctrl+C, Alt+Tab, Enter, пауза, Ctrl+V, Alt+Tab
+        SEND_STRING(SS_LCTL("c"));
+        SEND_STRING(SS_LALT(SS_TAP(X_TAB)));
+        SEND_STRING(SS_TAP(X_ENTER));
+        SEND_STRING(SS_DELAY(100));
+        SEND_STRING(SS_LCTL("v"));
+        SEND_STRING(SS_LALT(SS_TAP(X_TAB)));
+    } else if (leader_sequence_one_key(KC_S)) {
+        // Leader, s => Ctrl+S, пауза 300, Enter, пауза 200, Ctrl+W
+        SEND_STRING(SS_LCTL("s"));
+        SEND_STRING(SS_DELAY(300));
+        SEND_STRING(SS_TAP(X_ENTER));
+        SEND_STRING(SS_DELAY(200));
+        SEND_STRING(SS_LCTL("w"));
+    }
+}
 //----------------------------------------------SWAP HANDS MOTION----------------------------------------------
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0, 4}, {1, 4}, {2, 4}, {3, 4}, {4, 4}},
