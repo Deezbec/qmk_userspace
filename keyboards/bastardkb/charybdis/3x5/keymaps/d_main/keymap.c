@@ -242,7 +242,7 @@ void leader_end_user(void) {
     }
     else if (leader_sequence_one_key(KC_S)) {
         // Leader, s => Language swap (Win + Space)
-        SEND_STRING(SS_LGUI(X_SPACE));
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI));
     }
 }
 //----------------------------------------------SWAP HANDS MOTION----------------------------------------------
