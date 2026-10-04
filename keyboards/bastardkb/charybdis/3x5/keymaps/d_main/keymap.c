@@ -224,26 +224,24 @@ void keyboard_post_init_user(void) {
 */
 //-----------------------------------------------LEADER KEY STUFF-----------------------------------------------
 void leader_end_user(void) {
-    // Leader + V: переключение окна и вставка с задержкой
     if (leader_sequence_one_key(KC_V)) {
         SEND_STRING(
-            SS_DOWN(X_LCTRL) "c" SS_UP(X_LCTRL)          // Ctrl+C
-            SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT)  // Alt+Tab
-            SS_TAP(X_ENTER)                               // Enter
-            SS_DELAY(100)                                 // Пауза 100 мс
-            SS_DOWN(X_LCTRL) "v" SS_UP(X_LCTRL)          // Ctrl+V
-            SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT)  // Alt+Tab
+            SS_DOWN(X_LCTRL) "c" SS_UP(X_LCTRL)
+            SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT)
+            SS_TAP(X_ENTER)
+            SS_DELAY(100)
+            SS_DOWN(X_LCTRL) "v" SS_UP(X_LCTRL)
+            SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT)
         );
     }
 
-    // Leader + S: сохранение и закрытие вкладки
     if (leader_sequence_one_key(KC_S)) {
         SEND_STRING(
-            SS_DOWN(X_LCTRL) "s" SS_UP(X_LCTRL)          // Ctrl+S
-            SS_DELAY(300)                                 // Пауза 300 мс
-            SS_TAP(X_ENTER)                               // Enter
-            SS_DELAY(200)                                 // Пауза 200 мс
-            SS_DOWN(X_LCTRL) "w" SS_UP(X_LCTRL)          // Ctrl+W
+            SS_DOWN(X_LCTRL) "s" SS_UP(X_LCTRL)
+            SS_DELAY(300)
+            SS_TAP(X_ENTER)
+            SS_DELAY(200)
+            SS_DOWN(X_LCTRL) "w" SS_UP(X_LCTRL)
         );
     }
 }
