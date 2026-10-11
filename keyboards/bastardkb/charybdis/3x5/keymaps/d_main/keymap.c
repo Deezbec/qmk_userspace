@@ -8,10 +8,10 @@ enum charybdis_keymap_layers {
     LAYER_BASE = 0,
     LAYER_GAME,
     LAYER_GAME_EXTRA,
-    LAYER_MOD,
-    LAYER_MOD_EXTRA,
-    LAYER_DOWN,
-    LAYER_DOWN_EXTRA,
+    LAYER_UPPER,
+    LAYER_ADJUST,
+    LAYER_LOWER,
+    LAYER_LOWER_EXTRA,
     LAYER_POINTER,
 };
 
@@ -25,7 +25,7 @@ enum charybdis_keymap_layers {
 
 #define LAYOUT_GAME                                                                                      \
        MO(3),       KC_Q,    KC_W,    KC_E,    KC_R,    KC_NO,   KC_NO,      KC_UP,       KC_NO,    KC_NO, \
-       KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_NO,   KC_LEFT,    KC_DOWN,     KC_RGHT,  KC_NO,  \
+       KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_NO,   KC_LEFT,    KC_LOWER,     KC_RGHT,  KC_NO,  \
        MO(3),      KC_Z,    KC_X,    KC_C,    KC_V,    KC_NO,   MS_BTN1,    MS_BTN3,     MS_BTN2, DRGSCRL,  \
                       KC_NO, MO(2), KC_SPC, DF(0), MO(2)
 
@@ -35,25 +35,25 @@ enum charybdis_keymap_layers {
        KC_I,      KC_K,    KC_M,    KC_N,    KC_B,    KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    \
                       KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO
 
-#define LAYOUT_MOD_                                                                                      \
+#define LAYOUT_UPPER                                                                                      \
        KC_F1,     KC_F2,    KC_F3,   KC_F4,   KC_F5,  KC_F6,   KC_F7,      KC_F8,    KC_F9,    KC_F10,    \
        MO(4),     KC_LALT,  KC_LCTL, QK_LEAD, KC_TAB, KC_F11,  KC_RSFT,    KC_RCTL,  KC_RALT,  KC_RGUI,    \
        KC_LSFT,   KC_LCTL,  KC_ESC,   KC_APP,   KC_LGUI, KC_F12,  MS_BTN1,    MS_BTN3,  MS_BTN2,  DRGSCRL, \
                       KC_NO, MO(5), DF(0), KC_LSFT, KC_SPC
 
-#define LAYOUT_MOD_EXTRA                                                                  \
+#define LAYOUT_ADJUST                                                                  \
        KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_CLEAR_EEPROM, QK_BOOT, \
-       KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, S_D_MOD, DPI_MOD,              \
+       KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, S_D_UPPER, DPI_UPPER,              \
        SH_TT,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, S_D_RMOD, DPI_RMOD,               \
                       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 
-#define LAYOUT_DOWN                                                                                       \
+#define LAYOUT_LOWER                                                                                       \
        KC_1,      KC_2,     KC_3,    KC_4,      KC_5,    KC_6,   KC_7,      KC_8,    KC_9,     KC_0,       \
-       MO(6),     KC_DOWN,  KC_UP,   KC_BSPC,   KC_DEL,  KC_GRV, KC_MINS,   KC_EQL,  KC_BSLS,  KC_QUOT,     \
+       MO(6),     KC_LOWER,  KC_UP,   KC_BSPC,   KC_DEL,  KC_GRV, KC_MINS,   KC_EQL,  KC_BSLS,  KC_QUOT,     \
        KC_LCTL,   KC_LEFT,  KC_RGHT, SC_SENT, KC_NO,    KC_NO,  KC_LBRC,   KC_NO,   KC_NO,    KC_RBRC,      \
                       KC_NO, KC_TRNS, KC_NO, KC_LSFT, KC_SPC
 
-#define LAYOUT_DOWN_EXTRA                                                                    \
+#define LAYOUT_LOWER_EXTRA                                                                    \
        KC_INS,   KC_NO,    KC_NO,   KC_MPLY,   KC_MPRV,    KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PAST, \
        KC_TRNS,  KC_PGDN,  KC_PGUP, KC_CAPS,   DF(1),    KC_PMNS, KC_P4, KC_P5, KC_P6, KC_PPLS, \
        KC_SLEP,  KC_HOME,  KC_END,  KC_VOLD, KC_VOLU,  KC_P0, KC_P1, KC_P2, KC_P3, KC_PDOT,     \
@@ -69,17 +69,17 @@ enum charybdis_keymap_layers {
 
 //-------------------------------------------------COMBO STUFF-------------------------------------------------
 enum combos {
-    DOWN_COMBO_6,    
-    DOWN_COMBO_7,     
-    DOWN_COMBO_8,  
-    DOWN_COMBO_9,    
-    DOWN_COMBO_0,    
+    LOWER_COMBO_6,    
+    LOWER_COMBO_7,     
+    LOWER_COMBO_8,  
+    LOWER_COMBO_9,    
+    LOWER_COMBO_0,    
     MOD_COMBO_F6,
     MOD_COMBO_F7,
     MOD_COMBO_F8,
     MOD_COMBO_F9,
     MOD_COMBO_F10,
-    QUICK_TO_MOD_EXTRA,
+    QUICK_TO_ADJUST,
 };
 
 const uint16_t PROGMEM combo_6[]  = {KC_2, KC_4, COMBO_END};
@@ -92,29 +92,29 @@ const uint16_t PROGMEM combo_f7[] = {KC_F3, KC_F4, COMBO_END};
 const uint16_t PROGMEM combo_f8[] = {KC_F2, KC_F3, COMBO_END};
 const uint16_t PROGMEM combo_f9[] = {KC_F2, KC_F3, KC_F4, COMBO_END};
 const uint16_t PROGMEM combo_f10[] = {KC_F1, KC_F4, COMBO_END};
-const uint16_t PROGMEM combo_to_mod_extra[] = {KC_LSFT, KC_SPC, COMBO_END};
+const uint16_t PROGMEM combo_to_ADJUST[] = {KC_LSFT, KC_SPC, COMBO_END};
 
 combo_t key_combos[] = {
-    [DOWN_COMBO_6]  = COMBO(combo_6,  KC_6),
-    [DOWN_COMBO_7]  = COMBO(combo_7,  KC_7),
-    [DOWN_COMBO_8]  = COMBO(combo_8,  KC_8),
-    [DOWN_COMBO_9]  = COMBO(combo_9,  KC_9),
-    [DOWN_COMBO_0]  = COMBO(combo_0,  KC_0),
+    [LOWER_COMBO_6]  = COMBO(combo_6,  KC_6),
+    [LOWER_COMBO_7]  = COMBO(combo_7,  KC_7),
+    [LOWER_COMBO_8]  = COMBO(combo_8,  KC_8),
+    [LOWER_COMBO_9]  = COMBO(combo_9,  KC_9),
+    [LOWER_COMBO_0]  = COMBO(combo_0,  KC_0),
     [MOD_COMBO_F6]  = COMBO(combo_f6, KC_F6),
     [MOD_COMBO_F7]  = COMBO(combo_f7, KC_F7),
     [MOD_COMBO_F8]  = COMBO(combo_f8, KC_F8),
     [MOD_COMBO_F9]  = COMBO(combo_f9, KC_F9),
     [MOD_COMBO_F10] = COMBO(combo_f10, KC_F10),
-    [QUICK_TO_MOD_EXTRA] = COMBO(combo_to_mod_extra, MO(4)),
+    [QUICK_TO_ADJUST] = COMBO(combo_to_ADJUST, MO(4)),
 };
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     switch (combo_index) {
-        case DOWN_COMBO_6:
-        case DOWN_COMBO_7:
-        case DOWN_COMBO_8:
-        case DOWN_COMBO_9:
-        case DOWN_COMBO_0:
+        case LOWER_COMBO_6:
+        case LOWER_COMBO_7:
+        case LOWER_COMBO_8:
+        case LOWER_COMBO_9:
+        case LOWER_COMBO_0:
             return layer_state_is(5);
             
         case MOD_COMBO_F6:
@@ -124,7 +124,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         case MOD_COMBO_F10:
             return layer_state_is(3);
 
-        case QUICK_TO_MOD_EXTRA:
+        case QUICK_TO_ADJUST:
             return layer_state_is(0);
 
         default:
@@ -152,7 +152,7 @@ void leader_end_user(void) {
     }
     else if (leader_sequence_one_key(KC_S) || leader_sequence_one_key(KC_LALT)) {
         // Leader, s or Leader, alt => Language swap (Win + Space)
-        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI));
+        SEND_STRING(SS_LOWER(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI));
     }
 }
 //-----------------------------------------------TRACKBALL STUFF-----------------------------------------------
@@ -203,9 +203,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] = LAYOUT_wrapper(LAYOUT_LAYER_BASE),
   [LAYER_GAME] = LAYOUT_wrapper(LAYOUT_GAME),
   [LAYER_GAME_EXTRA] = LAYOUT_wrapper(LAYOUT_GAME_EXTRA),
-  [LAYER_MOD] = LAYOUT_wrapper(LAYOUT_MOD_),
-  [LAYER_MOD_EXTRA] = LAYOUT_wrapper(LAYOUT_MOD_EXTRA),
-  [LAYER_DOWN] = LAYOUT_wrapper(LAYOUT_DOWN),
-  [LAYER_DOWN_EXTRA] = LAYOUT_wrapper(LAYOUT_DOWN_EXTRA),
+  [LAYER_UPPER] = LAYOUT_wrapper(LAYOUT_UPPER),
+  [LAYER_ADJUST] = LAYOUT_wrapper(LAYOUT_ADJUST),
+  [LAYER_LOWER] = LAYOUT_wrapper(LAYOUT_LOWER),
+  [LAYER_LOWER_EXTRA] = LAYOUT_wrapper(LAYOUT_LOWER_EXTRA),
   [LAYER_POINTER] = LAYOUT_wrapper(LAYOUT_POINTER),
 };

@@ -49,7 +49,7 @@
 
 //leader key
 #define LEADER_PER_KEY_TIMING
-#define LEADER_TIMEOUT 200cho
+#define LEADER_TIMEOUT 200
 
 /* Charybdis-specific features. */
 
