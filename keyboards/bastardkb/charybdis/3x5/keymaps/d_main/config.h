@@ -49,7 +49,7 @@
 
 //leader key
 #define LEADER_PER_KEY_TIMING
-#define LEADER_TIMEOUT 200
+#define LEADER_TIMEOUT 200cho
 
 /* Charybdis-specific features. */
 
@@ -61,6 +61,6 @@
 #ifdef POINTING_DEVICE_ENABLE
 // Automatically enable the pointer layer when moving the trackball.  See also:
 #define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS 500
-#define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD 5
+#define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD 1
 #define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 #endif // POINTING_DEVICE_ENABLE
