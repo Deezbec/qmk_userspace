@@ -191,7 +191,8 @@ void keyboard_post_init_user(void) {
     //bkpd_set_auto_precision_on_mouse_layer_enabled(true);
     bkpd_set_auto_mouse_layer_enabled(true);
 }
-*/
+//*/
+
 //----------------------------------------------SWAP HANDS MOTION----------------------------------------------
 /*
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
