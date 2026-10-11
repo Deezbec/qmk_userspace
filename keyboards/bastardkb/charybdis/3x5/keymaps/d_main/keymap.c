@@ -150,8 +150,8 @@ void leader_end_user(void) {
         SEND_STRING(SS_DELAY(200));
         SEND_STRING(SS_LCTL("w"));
     }
-    else if (leader_sequence_one_key(KC_S)) {
-        // Leader, s => Language swap (Win + Space)
+    else if (leader_sequence_one_key(KC_S) or leader_sequence_one_key(KC_LALT)) {
+        // Leader, s or Leader, alt => Language swap (Win + Space)
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI));
     }
 }
