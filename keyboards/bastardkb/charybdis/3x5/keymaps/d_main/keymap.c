@@ -109,7 +109,7 @@ combo_t key_combos[] = {
     [MOD_COMBO_F10] = COMBO(combo_f10, KC_F10),
     [MOD_COMBO_F11] = COMBO(combo_f10, KC_F11),
     [MOD_COMBO_F12] = COMBO(combo_f10, KC_F12),
-    [QUICK_TO_ADJUST] = COMBO(combo_to_ADJUST, MO(4)),
+    [QUICK_TO_ADJUST] = COMBO(combo_to_ADJUST, MO(6)),
 };
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
