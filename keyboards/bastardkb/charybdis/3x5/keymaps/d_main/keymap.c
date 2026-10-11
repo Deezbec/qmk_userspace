@@ -25,7 +25,7 @@ enum charybdis_keymap_layers {
 
 #define LAYOUT_GAME                                                                                      \
        MO(3),       KC_Q,    KC_W,    KC_E,    KC_R,    KC_NO,   KC_NO,      KC_UP,       KC_NO,    KC_NO, \
-       KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_NO,   KC_LEFT,    KC_LOWER,     KC_RGHT,  KC_NO,  \
+       KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_NO,   KC_LEFT,    KC_DOWN,     KC_RGHT,  KC_NO,  \
        MO(3),      KC_Z,    KC_X,    KC_C,    KC_V,    KC_NO,   MS_BTN1,    MS_BTN3,     MS_BTN2, DRGSCRL,  \
                       KC_NO, MO(2), KC_SPC, DF(0), MO(2)
 
@@ -43,13 +43,13 @@ enum charybdis_keymap_layers {
 
 #define LAYOUT_ADJUST                                                                  \
        KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_CLEAR_EEPROM, QK_BOOT, \
-       KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, S_D_UPPER, DPI_UPPER,              \
+       KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, S_D_MOD, DPI_MOD,              \
        SH_TT,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, S_D_RMOD, DPI_RMOD,               \
                       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 
 #define LAYOUT_LOWER                                                                                       \
        KC_1,      KC_2,     KC_3,    KC_4,      KC_5,    KC_6,   KC_7,      KC_8,    KC_9,     KC_0,       \
-       MO(6),     KC_LOWER,  KC_UP,   KC_BSPC,   KC_DEL,  KC_GRV, KC_MINS,   KC_EQL,  KC_BSLS,  KC_QUOT,     \
+       MO(6),     KC_DOWN,  KC_UP,   KC_BSPC,   KC_DEL,  KC_GRV, KC_MINS,   KC_EQL,  KC_BSLS,  KC_QUOT,     \
        KC_LCTL,   KC_LEFT,  KC_RGHT, SC_SENT, KC_NO,    KC_NO,  KC_LBRC,   KC_NO,   KC_NO,    KC_RBRC,      \
                       KC_NO, KC_TRNS, KC_NO, KC_LSFT, KC_SPC
 
@@ -152,7 +152,7 @@ void leader_end_user(void) {
     }
     else if (leader_sequence_one_key(KC_S) || leader_sequence_one_key(KC_LALT)) {
         // Leader, s or Leader, alt => Language swap (Win + Space)
-        SEND_STRING(SS_LOWER(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI));
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI));
     }
 }
 //-----------------------------------------------TRACKBALL STUFF-----------------------------------------------
